@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ISU_Internal_CANModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ISU_Internal_CAN.dbo.can_raw_data_Seeding_2019' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="can_raw_data_Seeding_2019">
+          <Key>
+            <PropertyRef Name="ref_id" />
+          </Key>
+          <Property Name="ts_sec" Type="int" />
+          <Property Name="ts_usec" Type="int" />
+          <Property Name="channel" Type="tinyint" />
+          <Property Name="mid" Type="nvarchar" MaxLength="15" />
+          <Property Name="pgn" Type="nvarchar" MaxLength="5" />
+          <Property Name="sa" Type="nvarchar" MaxLength="2" />
+          <Property Name="dlc" Type="tinyint" />
+          <Property Name="d0" Type="tinyint" />
+          <Property Name="d1" Type="tinyint" />
+          <Property Name="d2" Type="tinyint" />
+          <Property Name="d3" Type="tinyint" />
+          <Property Name="d4" Type="tinyint" />
+          <Property Name="d5" Type="tinyint" />
+          <Property Name="d6" Type="tinyint" />
+          <Property Name="d7" Type="tinyint" />
+          <Property Name="ref_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="log_meta_data">
+          <Key>
+            <PropertyRef Name="ref_id" />
+          </Key>
+          <Property Name="ref_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="file_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="project_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="time_pushed" Type="datetime2" Precision="7" />
+          <Property Name="log_start_time" Type="datetime2" Precision="7" />
+          <Property Name="log_end_time" Type="datetime2" Precision="7" />
+          <Property Name="machine_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="file_size" Type="real" />
+        </EntityType>
+        <Association Name="FK_Seeding_meta_data_id_2019">
+          <End Role="log_meta_data" Type="Self.log_meta_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="can_raw_data_Seeding_2019" Type="Self.can_raw_data_Seeding_2019" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="log_meta_data">
+              <PropertyRef Name="ref_id" />
+            </Principal>
+            <Dependent Role="can_raw_data_Seeding_2019">
+              <PropertyRef Name="ref_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ISU_Internal_CANModel3StoreContainer">
+          <EntitySet Name="log_meta_data" EntityType="Self.log_meta_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="can_raw_data_Seeding_2019" EntityType="Self.can_raw_data_Seeding_2019" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [can_raw_data_Seeding_2019].[ts_sec] AS [ts_sec], 
+    [can_raw_data_Seeding_2019].[ts_usec] AS [ts_usec], 
+    [can_raw_data_Seeding_2019].[channel] AS [channel], 
+    [can_raw_data_Seeding_2019].[mid] AS [mid], 
+    [can_raw_data_Seeding_2019].[pgn] AS [pgn], 
+    [can_raw_data_Seeding_2019].[sa] AS [sa], 
+    [can_raw_data_Seeding_2019].[dlc] AS [dlc], 
+    [can_raw_data_Seeding_2019].[d0] AS [d0], 
+    [can_raw_data_Seeding_2019].[d1] AS [d1], 
+    [can_raw_data_Seeding_2019].[d2] AS [d2], 
+    [can_raw_data_Seeding_2019].[d3] AS [d3], 
+    [can_raw_data_Seeding_2019].[d4] AS [d4], 
+    [can_raw_data_Seeding_2019].[d5] AS [d5], 
+    [can_raw_data_Seeding_2019].[d6] AS [d6], 
+    [can_raw_data_Seeding_2019].[d7] AS [d7], 
+    [can_raw_data_Seeding_2019].[ref_id] AS [ref_id]
+    FROM [dbo].[can_raw_data_Seeding_2019] AS [can_raw_data_Seeding_2019]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Seeding_meta_data_id_2019" Association="Self.FK_Seeding_meta_data_id_2019">
+            <End Role="log_meta_data" EntitySet="log_meta_data" />
+            <End Role="can_raw_data_Seeding_2019" EntitySet="can_raw_data_Seeding_2019" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ISU_Internal_CANModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="log_meta_data">
+          <Key>
+            <PropertyRef Name="ref_id" />
+          </Key>
+          <Property Name="ref_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="file_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="project_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time_pushed" Type="DateTime" Precision="7" />
+          <Property Name="log_start_time" Type="DateTime" Precision="7" />
+          <Property Name="log_end_time" Type="DateTime" Precision="7" />
+          <Property Name="machine_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="file_size" Type="Single" />
+          <NavigationProperty Name="can_raw_data_Seeding_2019" Relationship="Self.FK_Seeding_meta_data_id_2019" FromRole="log_meta_data" ToRole="can_raw_data_Seeding_2019" />
+        </EntityType>
+        <EntityType Name="can_raw_data_Seeding_2019">
+          <Key>
+            <PropertyRef Name="ref_id" />
+          </Key>
+          <Property Name="ts_sec" Type="Int32" />
+          <Property Name="ts_usec" Type="Int32" />
+          <Property Name="channel" Type="Byte" />
+          <Property Name="mid" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="pgn" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="sa" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="dlc" Type="Byte" />
+          <Property Name="d0" Type="Byte" />
+          <Property Name="d1" Type="Byte" />
+          <Property Name="d2" Type="Byte" />
+          <Property Name="d3" Type="Byte" />
+          <Property Name="d4" Type="Byte" />
+          <Property Name="d5" Type="Byte" />
+          <Property Name="d6" Type="Byte" />
+          <Property Name="d7" Type="Byte" />
+          <Property Name="ref_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="log_meta_data" Relationship="Self.FK_Seeding_meta_data_id_2019" FromRole="can_raw_data_Seeding_2019" ToRole="log_meta_data" />
+        </EntityType>
+        <Association Name="FK_Seeding_meta_data_id_2019">
+          <End Role="log_meta_data" Type="Self.log_meta_data" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="can_raw_data_Seeding_2019" Type="Self.can_raw_data_Seeding_2019" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="log_meta_data">
+              <PropertyRef Name="ref_id" />
+            </Principal>
+            <Dependent Role="can_raw_data_Seeding_2019">
+              <PropertyRef Name="ref_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ISU_Internal_CANEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="log_meta_data" EntityType="Self.log_meta_data" />
+          <EntitySet Name="can_raw_data_Seeding_2019" EntityType="Self.can_raw_data_Seeding_2019" />
+          <AssociationSet Name="FK_Seeding_meta_data_id_2019" Association="Self.FK_Seeding_meta_data_id_2019">
+            <End Role="log_meta_data" EntitySet="log_meta_data" />
+            <End Role="can_raw_data_Seeding_2019" EntitySet="can_raw_data_Seeding_2019" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ISU_Internal_CANModel3StoreContainer" CdmEntityContainer="ISU_Internal_CANEntities">
+          <EntitySetMapping Name="log_meta_data">
+            <EntityTypeMapping TypeName="ISU_Internal_CANModel3.log_meta_data">
+              <MappingFragment StoreEntitySet="log_meta_data">
+                <ScalarProperty Name="ref_id" ColumnName="ref_id" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="project_name" ColumnName="project_name" />
+                <ScalarProperty Name="time_pushed" ColumnName="time_pushed" />
+                <ScalarProperty Name="log_start_time" ColumnName="log_start_time" />
+                <ScalarProperty Name="log_end_time" ColumnName="log_end_time" />
+                <ScalarProperty Name="machine_id" ColumnName="machine_id" />
+                <ScalarProperty Name="file_size" ColumnName="file_size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="can_raw_data_Seeding_2019">
+            <EntityTypeMapping TypeName="ISU_Internal_CANModel3.can_raw_data_Seeding_2019">
+              <MappingFragment StoreEntitySet="can_raw_data_Seeding_2019">
+                <ScalarProperty Name="ts_sec" ColumnName="ts_sec" />
+                <ScalarProperty Name="ts_usec" ColumnName="ts_usec" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="pgn" ColumnName="pgn" />
+                <ScalarProperty Name="sa" ColumnName="sa" />
+                <ScalarProperty Name="dlc" ColumnName="dlc" />
+                <ScalarProperty Name="d0" ColumnName="d0" />
+                <ScalarProperty Name="d1" ColumnName="d1" />
+                <ScalarProperty Name="d2" ColumnName="d2" />
+                <ScalarProperty Name="d3" ColumnName="d3" />
+                <ScalarProperty Name="d4" ColumnName="d4" />
+                <ScalarProperty Name="d5" ColumnName="d5" />
+                <ScalarProperty Name="d6" ColumnName="d6" />
+                <ScalarProperty Name="d7" ColumnName="d7" />
+                <ScalarProperty Name="ref_id" ColumnName="ref_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
